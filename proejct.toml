@@ -1,0 +1,138 @@
+[build-system]
+requires = [
+    "setuptools>=61.0",
+    "wheel",
+    "torch>=2.0.0",
+    "pybind11>=2.10.0",
+    "ninja",
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "vllm-lite"
+version = "0.1.0"
+description = "A lightweight, high-throughput LLM inference engine for consumer hardware"
+readme = "README.md"
+license = {text = "Apache-2.0"}
+authors = [
+    {name = "ved1beta", email = "ved1beta@example.com"},
+]
+maintainers = [
+    {name = "ved1beta", email = "ved1beta@example.com"},
+]
+keywords = ["llm", "inference", "attention", "cuda", "optimization", "machine-learning"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+requires-python = ">=3.8"
+dependencies = [
+    "torch>=2.0.0",
+    "transformers>=4.30.0",
+    "tokenizers>=0.13.0",
+    "accelerate>=0.20.0",
+    "numpy>=1.21.0",
+    "psutil>=5.9.0",
+    "pynvml>=11.0.0",
+    "packaging>=20.0",
+    "fastapi>=0.95.0",
+    "uvicorn>=0.22.0",
+    "pydantic>=2.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-asyncio>=0.21.0",
+    "black>=23.0.0",
+    "isort>=5.12.0",
+    "flake8>=6.0.0",
+    "mypy>=1.4.0",
+    "pre-commit>=3.3.0",
+]
+test = [
+    "pytest>=7.0.0",
+    "pytest-asyncio>=0.21.0",
+    "coverage>=7.2.0",
+]
+quantization = [
+    "bitsandbytes>=0.41.0",
+    "auto-gptq>=0.4.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/ved1beta/vllm-lite"
+Repository = "https://github.com/ved1beta/vllm-lite"
+Issues = "https://github.com/ved1beta/vllm-lite/issues"
+Documentation = "https://github.com/ved1beta/vllm-lite#readme"
+
+[project.scripts]
+vllm-lite = "vllm_lite.entrypoints.cli:main"
+vllm-lite-serve = "vllm_lite.entrypoints.api_server:main"
+vllm-lite-benchmark = "vllm_lite.benchmarks.benchmark:main"
+
+[tool.setuptools]
+packages = ["vllm_lite"]
+
+[tool.setuptools.package-data]
+vllm_lite = ["py.typed", "configs/*.yaml", "configs/*.json"]
+
+[tool.black]
+line-length = 88
+target-version = ['py38']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | build
+  | dist
+)/
+'''
+
+[tool.isort]
+profile = "black"
+line_length = 88
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+use_parentheses = true
+ensure_newline_before_comments = true
+
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+warn_unreachable = true
+strict_equality = true
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = "-ra -q --strict-markers --strict-config"
+testpaths = ["tests"]
+filterwarnings = [
+    "error",
+    "ignore::UserWarning",
+    "ignore::DeprecationWarning",
+]
