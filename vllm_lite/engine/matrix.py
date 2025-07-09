@@ -12,11 +12,11 @@ matrix_ext = load(
     name="matrix_ext",
     sources=[
         os.path.join(csrc_dir, "matrix.cu"),        
-        os.path.join(csrc_dir, "bindings.cpp")       
+        os.path.join(csrc_dir, "bindings", "bindings.cpp")       
     ],
     verbose=True,
     extra_cflags=["-O3"],
-    extra_cuda_cflags=["-O3", "-arch=sm_86"]  # Update architecture for RTX 3050
+    extra_cuda_cflags=["-O3", "-arch=sm_86"]
 )
 
 def gemm(A, B, alpha=1.0, beta=0.0):

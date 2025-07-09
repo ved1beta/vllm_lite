@@ -172,6 +172,14 @@ def get_cuda_extensions() -> List[Extension]:
             ],
             "include_dirs": ["csrc/", "csrc/quantization/"],
         },
+        {
+            "name": "vllm_lite._C.matrix",
+            "sources": [
+                "csrc/matrix.cu",
+                "csrc/bindings/binding.cpp",
+            ],
+            "include_dirs": ["csrc/", "csrc/bindings/"],
+        },
     ]
     
     # Only add extensions where all source files exist
