@@ -173,18 +173,10 @@ def get_cuda_extensions() -> List[Extension]:
             "include_dirs": ["csrc/", "csrc/quantization/"],
         },
         {
-            "name": "vllm_lite._C.matrix_ext",
+            "name": "vllm_lite._C.matrix",
             "sources": [
                 "csrc/matrix.cu",
-                "csrc/bindings/matrix_bindings.cpp",
-            ],
-            "include_dirs": ["csrc/", "csrc/bindings/"],
-        },
-        {
-            "name": "vllm_lite._C.attention_ext",
-            "sources": [
-                "csrc/flash_atten.cu",
-                "csrc/bindings/attention_bindings.cpp",
+                "csrc/bindings/binding.cpp",
             ],
             "include_dirs": ["csrc/", "csrc/bindings/"],
         },
